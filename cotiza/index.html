@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MCVealo y COTIZA</title>
+<link rel="icon" href="https://cdn.bio.link/uploads/profile_pictures/2024-03-26/IG7D3fOd5oQNl3bKr6nJp0qUJaGwahhh.png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+
+<div class="container">
+<img src="https://i.ibb.co/TMsXHnyM/image.png" alt="Medios con Valor" class="logo">
+
+<div id="bienvenida" class="card active">
+<h1>Solicita tu Servicio</h1>
+<p>Contamos con dos tipos de servicio:</p>
+<ul class="info-list">
+<li><strong>Recolección ordinaria:</strong> Contenedor fijo, mínimo dos visitas semanales, contrato anual.</li>
+<li><strong>Recolección extraordinaria:</strong> Sin contrato, servicio urgente con camión de 20 m³ o 3.5 toneladas.</li>
+</ul>
+<div class="buttons">
+<button id="btnOrdinaria">Recolección Ordinaria</button>
+<button id="btnExtraordinaria">Recolección Extraordinaria</button>
+</div>
+</div>
+
+<form id="formOrdinario" class="card">
+<div class="step active">
+<p>¿Cuál es el nombre comercial de tu empresa?</p>
+<input type="text" name="nombreComercial" placeholder="Medios con Valor" required>
+<div class="buttons">
+<button type="button" class="next">Siguiente</button>
+</div>
+</div>
+<div class="step">
+<p>¿Cuál es tu nombre?</p>
+<input type="text" name="nombre" placeholder="Tu Nombre" required>
+<div class="buttons">
+<button type="button" class="back">Atrás</button>
+<button type="button" class="next">Siguiente</button>
+</div>
+</div>
+<div class="step">
+<p>¿A qué número podemos contactarte?</p>
+<input type="tel" name="celular" pattern="[0-9]{10}" placeholder="4461385019" required>
+<div class="buttons">
+<button type="button" class="back">Atrás</button>
+<button type="button" class="next">Siguiente</button>
+</div>
+</div>
+<div class="step">
+<p>¿Cuál es tu correo electrónico?</p>
+<input type="email" name="correo" placeholder="sistemas@mediosconvalor.com" required>
+<div class="buttons">
+<button type="button" class="back">Atrás</button>
+<button type="button" class="next">Siguiente</button>
+</div>
+</div>
+<div class="step">
+<p>¿En qué sucursal deseas el servicio?</p>
+<select name="sucursal" required>
+<option value="">Selecciona una sucursal</option>
+<option value="queretaro">Querétaro</option>
+<option value="aguascalientes">Aguascalientes</option>
+<option value="monterrey">Monterrey</option>
+</select>
+<div class="buttons">
+<button type="button" class="back">Atrás</button>
+<button type="button" class="next">Siguiente</button>
+</div>
+</div>
+<div class="step">
+<p>¿Cuál es la dirección del servicio?</p>
+<input type="text" name="direccion" id="direccionServicio" required placeholder="Ejemplo: C Farmaceutica 111, Buenavista">
+<small id="errorDireccion" class="advertencia" style="display:none;">⚠️ La dirección no coincide con la sucursal seleccionada.</small>
+<div class="map-container" id="mapaDireccion"></div>
+<small class="advertencia">⚠️ Precios pueden variar si no se encuentra en zonas metropolitanas.</small>
+<div class="buttons">
+<button type="button" class="back">Atrás</button>
+<button type="button" class="next" id="btnNextDireccion">Siguiente</button>
+</div>
+</div>
+<div class="step">
+<p>Selecciona el contenedor:</p>
+<select name="contenedor" required id="contenedorOrdinario">
+<option value="">Selecciona un contenedor</option>
+</select>
+<div id="infoContenedorOrdi" class="infoContenedor"></div>
+<small id="mensajeContenedorOrdi" class="advertencia" style="display:none;">
+⚠️ Si se requiere mayor o menor volumen, favor de contactarse a <span id="correoContenedorOrdi"></span>
+</small>
+<div class="buttons">
+<button type="button" class="back">Atrás</button>
+<button type="button" class="next">Siguiente</button>
+</div>
+</div>
+<div class="step">
+<p>Selecciona cantidad de visitas deseadas:</p>
+<select name="frecuencia" required>
+<option value="">Selecciona visitas</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+</select>
+<small id="mensajeVisitas" class="advertencia" style="display:none;">
+⚠️ Para más o menos visitas, favor de contactarse a <span id="correoVisitas"></span>
+</small>
+<div class="buttons">
+<button type="button" class="back">Atrás</button>
+<button type="submit">Enviar Solicitud</button>
+</div>
+</div>
+
+<input type="hidden" name="ip" id="ipUsuario">
+<input type="hidden" name="latitud" id="latitudUsuario">
+<input type="hidden" name="longitud" id="longitudUsuario">
+</form>
+
+<form id="formExtraordinaria" class="card">
+<div class="step active">
+<p>¿Cuál es el nombre comercial de tu empresa?</p>
+<input type="text" name="nombreComercial" placeholder="Medios con Valor" required>
+<div class="buttons">
+<button type="button" class="next">Siguiente</button>
+</div>
+</div>
+<div class="step">
+<p>¿Cuál es tu nombre?</p>
+<input type="text" name="nombre" placeholder="Tu Nombre" required>
+<div class="buttons">
+<button type="button" class="back">Atrás</button>
+<button type="button" class="next">Siguiente</button>
+</div>
+</div>
+<div class="step">
+<p>¿A qué número podemos contactarte?</p>
+<input type="tel" name="celular" pattern="[0-9]{10}" placeholder="4461385019" required>
+<div class="buttons">
+<button type="button" class="back">Atrás</button>
+<button type="button" class="next">Siguiente</button>
+</div>
+</div>
+<div class="step">
+<p>¿Cuál es tu correo electrónico?</p>
+<input type="email" name="correo" placeholder="sistemas@mediosconvalor.com" required>
+<div class="buttons">
+<button type="button" class="back">Atrás</button>
+<button type="button" class="next">Siguiente</button>
+</div>
+</div>
+<div class="step">
+<p>¿En qué sucursal deseas el servicio?</p>
+<select name="sucursal" required>
+<option value="">Selecciona una sucursal</option>
+<option value="queretaro">Querétaro</option>
+<option value="aguascalientes">Aguascalientes</option>
+<option value="monterrey">Monterrey</option>
+</select>
+<div class="buttons">
+<button type="button" class="back">Atrás</button>
+<button type="button" class="next">Siguiente</button>
+</div>
+</div>
+<div class="step">
+<p>¿Cuál es la dirección del servicio extraordinario?</p>
+<input type="text" name="direccion" id="direccionExtra" required placeholder="C Farmaceutica 111, Buenavista">
+<small id="errorDireccionExtra" class="advertencia" style="display:none;">⚠️ La dirección no coincide con la sucursal seleccionada.</small>
+<div class="map-container" id="mapaDireccionExtra"></div>
+<div class="buttons">
+<button type="button" class="back">Atrás</button>
+<button type="button" class="next" id="btnNextDireccionExtra">Siguiente</button>
+</div>
+</div>
+<div class="step">
+<p>Tipo de residuos:</p>
+<input type="text" name="tipoResiduos" placeholder="Acumulación de Residuos Sólidos Urbanos (RSU)" required>
+<div class="buttons">
+<button type="button" class="back">Atrás</button>
+<button type="button" class="next">Siguiente</button>
+</div>
+</div>
+<div class="step">
+<p>Sube las imágenes de los residuos:</p>
+
+<label class="file-upload" id="labelImagenExtra">
+  <i class="fas fa-upload"></i> Seleccionar imagen
+  <input type="file" name="imagen" accept="image/*" required>
+</label>
+
+<div id="fileListExtra" class="file-list"></div>
+
+<small class="advertencia" style="color: gray; display: block; margin-top: 10px;">
+📌 La cantidad de residuos será validada al momento de la recolección. Se programarán los viajes necesarios para completar el servicio.
+</small>
+
+<div class="buttons">
+<button type="button" class="back">Atrás</button>
+<button type="submit">Enviar Solicitud</button>
+</div>
+</div>
+
+<input type="hidden" name="ip" id="ipExtra">
+<input type="hidden" name="latitud" id="latExtra">
+<input type="hidden" name="longitud" id="lonExtra">
+</form>
+
+<div id="popup" class="popup">
+<div class="popup-content">
+<h2 id="popupEmoji">✅</h2>
+<p id="popupMensaje">Formulario enviado exitosamente.</p>
+<div id="popupOpciones" class="popup-buttons">
+<button id="cerrarPopup">Cerrar</button>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="waMenu" class="whatsapp-menu">
+<button id="waToggle"><i class="fab fa-whatsapp"></i></button>
+<ul id="waList" class="whatsapp-list">
+<li data-key="queretaro">Querétaro</li>
+<li data-key="aguascalientes">Aguascalientes</li>
+<li data-key="monterrey">Monterrey</li>
+</ul>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
